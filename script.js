@@ -7,7 +7,7 @@ let secondNumber = "";
 //selectors
 
 const screen = document.querySelector("#screen");
-const buttons = document.querySelectorAll(".regular");
+const buttons = document.querySelectorAll('.regular:not(.equals)');
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -49,18 +49,26 @@ function multiply (a, b) {
 }
 
 function divide (a, b){
+    if (b === 0) {
+        return "Error: Cannot divide by zero!";
+    }
     return a / b;
 }
 
 function operate (firstNumber, operator, secondNumber) {
+    
     if (operator === "+") {
-        add (firstNumber, secondNumber);
+        let operationResult = add (firstNumber, secondNumber);
+        return operationResult;
     } else if (operator === "-") {
-        subtract(firstNumber, secondNumber);
+        let operationResult = subtract(firstNumber, secondNumber);
+        return operationResult;
     } else if (operator === "*") {
-        multiply(firstNumber, secondNumber);
+        let operationResult = multiply(firstNumber, secondNumber);
+        return operationResult;
     } else if (operator === "/") {
-        divide (firstNumber, secondNumber)
+        let operationResult = divide (firstNumber, secondNumber)
+        return operationResult;
     } else {
         alert("Insert a valid number")
     }
@@ -71,9 +79,9 @@ function beginCalc () {
     const delimiters = /([+\-*/])/g;
     const parts = string.split(delimiters);
         if (parts.length >= 3) {
-            firstNumber = parts[0];
+            firstNumber = Number(parts[0]);
             operator = parts[1];
-            secondNumber = parts[2];
+            secondNumber = Number(parts[2]);
         } else {
             console.log("The original string does not have enough parts");
         }
